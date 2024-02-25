@@ -29,8 +29,8 @@ public class InventoryController {
   }
 
   /**
-   * Find Products.
-   * @return List of Product.
+   * Find Inventories.
+   * @return List of Inventory.
    */
   @GetMapping("/inventory")
   public List<Inventory> findInventories() {
@@ -38,7 +38,8 @@ public class InventoryController {
   }
 
   /**
-   *
+   * Create a new inventory
+   * @return the newly created Inventory Object
    */
   @PostMapping("/inventory")
   public Inventory create(@Valid @RequestBody Inventory inventory){
