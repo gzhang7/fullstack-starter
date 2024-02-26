@@ -3,8 +3,11 @@ package com.starter.fullstack.rest;
 import com.starter.fullstack.api.Inventory;
 import com.starter.fullstack.dao.InventoryDAO;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,12 +29,21 @@ public class InventoryController {
   }
 
   /**
-   * Find Products.
-   * @return List of Product.
+   * Find Inventories.
+   * @return List of Inventory.
    */
   @GetMapping
   public List<Inventory> findInventories() {
     return this.inventoryDAO.findAll();
+  }
+
+  /**
+   * Create a new inventory
+   * @return the newly created Inventory Object
+   */
+  @PostMapping
+  public Inventory create(@Valid @RequestBody Inventory inventory){
+    return this.inventoryDAO.create(inventory);
   }
 }
 
