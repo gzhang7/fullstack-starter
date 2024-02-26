@@ -32,7 +32,7 @@ public class InventoryController {
    * Find Inventories.
    * @return List of Inventory.
    */
-  @GetMapping("/inventory")
+  @GetMapping
   public List<Inventory> findInventories() {
     return this.inventoryDAO.findAll();
   }
@@ -41,7 +41,7 @@ public class InventoryController {
    * Create a new inventory
    * @return the newly created Inventory Object
    */
-  @PostMapping("/inventory")
+  @PostMapping
   public Inventory create(@Valid @RequestBody Inventory inventory){
     return this.inventoryDAO.create(inventory);
   }
