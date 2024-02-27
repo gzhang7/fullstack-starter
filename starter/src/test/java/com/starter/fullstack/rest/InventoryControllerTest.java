@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -92,5 +93,23 @@ public class InventoryControllerTest {
 
     //check if the IDs are different
     Assert.assertNotEquals("ID 2", inventoryList.get(1).getId());
+  }
+
+  /**
+   * Test remove endpoint.
+   * @throws Throwable see MockMvc
+   */
+  @Test
+  public void remove() throws Throwable{
+    this.mockMvc.perform(delete("/inventory")
+            .accept(MediaType.APPLICATION_JSON)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(this.objectMapper.writeValueAsString(
+                    this.mongoTemplate.findAll(Inventory.class).get(0).getId())))
+            .andExpect(status().isOk());
+
+    // check the inventory size after the deletion
+    List<Inventory> inventoryList = this.mongoTemplate.findAll(Inventory.class);
+    Assert.assertEquals(1, inventoryList.size());
   }
 }
