@@ -75,4 +75,34 @@ public class InventoryDAOTest {
     // the IDs should NOT match because the ID gets set to null in the create method
     Assert.assertNotEquals("FIRST", this.mongoTemplate.findAll(Inventory.class).get(0).getId());
   }
+
+  /**
+   * Test Delete method.
+   */
+  @Test
+  public void delete() {
+    Inventory inventory = new Inventory();
+    inventory.setName(NAME);
+    inventory.setProductType(PRODUCT_TYPE);
+    inventory.setDescription("Product 1");
+    this.inventoryDAO.create(inventory);
+    this.inventoryDAO.create(inventory);
+
+    List<Inventory> inventoryList = this.mongoTemplate.findAll(Inventory.class);
+    Assert.assertEquals(2, inventoryList.size());
+
+    //deletes the second inventory Object
+    this.inventoryDAO.delete(inventoryList.get(1).getId());
+
+    // check the size of the inventory list after deleting 1 inventory Object
+    inventoryList = this.mongoTemplate.findAll(Inventory.class);
+    Assert.assertEquals(1, inventoryList.size());
+
+    // delete the first inventory Object
+    this.inventoryDAO.delete(inventoryList.get(0).getId());
+
+    // check to see if the inventory list contains no inventories now
+    inventoryList = this.mongoTemplate.findAll(Inventory.class);
+    Assert.assertEquals(0, inventoryList.size());
+  }
 }
