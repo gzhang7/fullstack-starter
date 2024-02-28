@@ -104,12 +104,11 @@ public class InventoryControllerTest {
     this.mockMvc.perform(delete("/inventory")
             .accept(MediaType.APPLICATION_JSON)
             .contentType(MediaType.APPLICATION_JSON)
-            .content(this.objectMapper.writeValueAsString(
-                    this.mongoTemplate.findAll(Inventory.class).get(0).getId())))
+            .content(this.mongoTemplate.findAll(Inventory.class).get(0).getId()))
             .andExpect(status().isOk());
 
     // check the inventory size after the deletion
     List<Inventory> inventoryList = this.mongoTemplate.findAll(Inventory.class);
-    Assert.assertEquals(1, inventoryList.size());
+    Assert.assertEquals(0, inventoryList.size());
   }
 }
