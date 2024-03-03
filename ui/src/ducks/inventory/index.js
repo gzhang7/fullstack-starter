@@ -1,5 +1,5 @@
-import 'axios' from axios
-import '../alerts/index.js'
+import axios from 'axios'
+import openSuccess from '../alerts/index'
 import { createAction, handleActions } from 'redux-actions'
 
 const actions = {
@@ -15,14 +15,14 @@ export let defaultState = {
   fetched: false,
 }
 
-export const findInventory = createAction(actions.INVENTORY_GET_ALL, () => {
+export const findInventory = createAction(actions.INVENTORY_GET_ALL, () =>
   (dispatch, getState, config) => axios
     .get(`${config.restAPIUrl}/inventory`)
     .then((suc) => {
-        dispatch(refreshInventory(suc.data))
-        dispatch(openSuccess(invs))
-    })
+      dispatch(refreshInventory(suc.data))
+      dispatch(openSuccess('Inventory found.'))
     }
+    )
 )
 
 export const saveInventory = createAction(actions.INVENTORY_SAVE, (inventory) =>
@@ -37,7 +37,7 @@ export const saveInventory = createAction(actions.INVENTORY_SAVE, (inventory) =>
       })
       invs.push(suc.data)
       dispatch(refreshInventory(invs))
-      dispatch(openSuccess(invs))
+      dispatch(openSuccess('Inventory saved.'))
     })
 )
 
@@ -52,14 +52,14 @@ export const removeInventory = createAction(actions.INVENTORY_DELETE, (ids) =>
         }
       })
       dispatch(refreshInventory(invs))
-      dispatch(openSuccess(invs))
+      dispatch(openSuccess('Inventory refreshed.'))
     })
 )
 
 export const refreshInventory = createAction(actions.INVENTORY_REFRESH, (payload) =>
   (dispatcher, getState, config) =>
     payload.sort((inventoryA, inventoryB) =>
-    inventoryA.name < inventoryB.name ? -1 : inventoryA.name > inventoryB.name ? 1 : 0)
+      inventoryA.name < inventoryB.name ? -1 : inventoryA.name > inventoryB.name ? 1 : 0)
 )
 
 export default handleActions({
