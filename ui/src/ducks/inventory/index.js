@@ -1,5 +1,5 @@
+import * as alerts from '../alerts/index'
 import axios from 'axios'
-import openSuccess from '../alerts/index'
 import { createAction, handleActions } from 'redux-actions'
 
 const actions = {
@@ -20,7 +20,7 @@ export const findInventory = createAction(actions.INVENTORY_GET_ALL, () =>
     .get(`${config.restAPIUrl}/inventory`)
     .then((suc) => {
       dispatch(refreshInventory(suc.data))
-      dispatch(openSuccess('Inventory found.'))
+      dispatch(alerts.openSuccess('Inventory created'))
     }
     )
 )
@@ -37,7 +37,7 @@ export const saveInventory = createAction(actions.INVENTORY_SAVE, (inventory) =>
       })
       invs.push(suc.data)
       dispatch(refreshInventory(invs))
-      dispatch(openSuccess('Inventory saved.'))
+      dispatch(alerts.openSuccess('Inventory saved'))
     })
 )
 
@@ -52,7 +52,7 @@ export const removeInventory = createAction(actions.INVENTORY_DELETE, (ids) =>
         }
       })
       dispatch(refreshInventory(invs))
-      dispatch(openSuccess('Inventory refreshed.'))
+      dispatch(alerts.openSuccess('Inventory removed'))
     })
 )
 
@@ -74,7 +74,7 @@ export default handleActions({
   }),
   [actions.INVENTORY_GET_ALL]: (state, action) => ({
     ...state,
-    all: action.payload,
+    //all: action.payload,
     fetched: true,
   }),
   [actions.INVENTORY_SAVE]: (state, action) => ({
