@@ -86,3 +86,4 @@ export default handleActions({
     all: action.payload,
     fetched: true,
   })
+}, defaultState)
