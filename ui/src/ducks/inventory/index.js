@@ -74,7 +74,6 @@ export default handleActions({
   }),
   [actions.INVENTORY_GET_ALL]: (state, action) => ({
     ...state,
-    //all: action.payload,
     fetched: true,
   }),
   [actions.INVENTORY_SAVE]: (state, action) => ({
@@ -87,4 +86,3 @@ export default handleActions({
     all: action.payload,
     fetched: true,
   })
-}, defaultState)
