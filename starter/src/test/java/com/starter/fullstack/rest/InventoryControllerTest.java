@@ -2,6 +2,7 @@ package com.starter.fullstack.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.starter.fullstack.api.Inventory;
+import java.util.List;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -14,9 +15,6 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-
-import java.util.List;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -100,7 +98,7 @@ public class InventoryControllerTest {
    * @throws Throwable see MockMvc
    */
   @Test
-  public void remove() throws Throwable{
+  public void remove() throws Throwable {
     this.mockMvc.perform(delete("/inventory")
             .accept(MediaType.APPLICATION_JSON)
             .contentType(MediaType.APPLICATION_JSON)
